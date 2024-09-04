@@ -17,18 +17,14 @@ class ProdController extends Controller
         return view('product',['products'=>$products]);
     }
 
-    public function show()
-    {
 
-        return 'Post detail';
-    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('products.create',['product'=>new Producto()]);
     }
 
     /**
@@ -42,15 +38,15 @@ class ProdController extends Controller
     /**
      * Display the specified resource.
      */
-
+    public function edit(Producto $products)
+    {
+       
+        return view('products.edit',['products'=>$products]);
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

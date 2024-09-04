@@ -8,11 +8,11 @@
 </head>
 <body>
     @include('partials.navigation')
-    <h1>Productos</h1>
-
+    <h1>Productos</h1> &nbsp; <a href="{{route('products.create')}}">agregar nuevo producto</a>
+<br>
     @foreach ($products as $product)
-        {{$product->prod_nom}}, {{$product->prod_descripcion}}, <a href="/productos/{{$product->prod_id}}">Editar</a>, <a href="">Eliminar</a>
-    <br>
+        {{$product->prod_nom}}, {{$product->prod_descripcion}}, <a href="/productos/{{$product}}/edit">Editar</a>, <a href="">Eliminar</a>
+     <br>{{--{{route('products.edit',$product)}} --}}
         @endforeach
 </body>
 </html>
