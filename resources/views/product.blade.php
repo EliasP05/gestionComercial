@@ -11,8 +11,8 @@
     <h1>Productos</h1> &nbsp; <a href="{{route('products.create')}}">agregar nuevo producto</a>
 <br>
     @foreach ($products as $product)
-        {{$product->prod_nom}}, {{$product->prod_descripcion}}, <a href="/productos/{{$product}}/edit">Editar</a>, <a href="">Eliminar</a>
-     <br>{{--{{route('products.edit',$product)}} --}}
+        {{$product->prod_nom}}, {{$product->prod_descripcion}}, <a href="{{route('products.edit', $product->prod_id)}}">Editar</a>, <a href="">Eliminar</a>
+     <br>{{--{{route('products.edit',$product)}} /productos/{{$product}}/edit--}}
         @endforeach
 </body>
 </html>

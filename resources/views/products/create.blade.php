@@ -2,4 +2,5 @@
 <form action="">
 
     <label for="">Nombre<input type="text" name="" id=""></label>
+  
 </form>

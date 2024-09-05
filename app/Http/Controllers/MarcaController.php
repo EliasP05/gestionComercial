@@ -2,29 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Producto;
+use App\Models\Marca;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Return_;
 
-class ProdController extends Controller
+class MarcaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products=Producto::get();
-        return view('product',['products'=>$products]);
+        $marcas=Marca::get();
+
+        return view('marca',['marcas'=>$marcas]);
     }
-
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('products.create',['product'=>new Producto()]);
+        return view('marca.create',['marca'=> new Marca()]);
     }
 
     /**
@@ -32,27 +31,34 @@ class ProdController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $marca=new Marca();
+        $marca->marca_nombre= $request->input('marca_nombre');
+        $marca->save();
+        
+        session()->flash('status','Marca registrada');
+        return redirect()->route('marca');
     }
 
     /**
      * Display the specified resource.
      */
-    public function edit(Producto $products)
+    public function show(Marca $marca)
     {
-       
-        // return view('products.edit',['products'=>$products]);
-        return $products;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
+    public function edit(Marca $marca)
+    {
+        return view();
+    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Marca $marca)
     {
         //
     }
@@ -60,7 +66,7 @@ class ProdController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Marca $marca)
     {
         //
     }
