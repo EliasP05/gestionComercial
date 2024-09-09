@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveMarcaRequest;
 use App\Models\Marca;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
@@ -23,20 +24,26 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        return view('marca.create',['marca'=> new Marca()]);
+        return view('marcas.create',['marca' => new Marca]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SaveMarcaRequest $request)
     {
-        $marca=new Marca();
-        $marca->marca_nombre= $request->input('marca_nombre');
-        $marca->save();
+        // $validate=$request->validate([
+        //     'marca_nombre'=>['required'],
+        // ]);
+        // $marca=new Marca();
+        // $marca->marca_nombre= $request->input('marca_nombre');
+        // $marca->save();
+
+
+        Marca::create($request->validated());
         
         session()->flash('status','Marca registrada');
-        return redirect()->route('marca');
+        return redirect()->route('marcas');
     }
 
     /**
@@ -52,15 +59,20 @@ class MarcaController extends Controller
      */
     public function edit(Marca $marca)
     {
-        return view();
+        return view('marcas.edit',['marca'=>$marca]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Marca $marca)
+    public function update(SaveMarcaRequest $request, Marca $marca)
     {
-        //
+        
+
+        $marca->update($request->validated());
+
+        session()->flash('status','Marca modificada');
+        return redirect()->route('marcas');
     }
 
     /**
@@ -68,6 +80,9 @@ class MarcaController extends Controller
      */
     public function destroy(Marca $marca)
     {
-        //
+        $marca->delete();
+
+        session()->flash('status','Marca eliminada');
+        return redirect()->route('marcas');
     }
 }

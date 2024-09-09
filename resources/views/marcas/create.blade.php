@@ -1,8 +1,8 @@
-<h1>Agregar Marca</h1>
-<form action="{{route('marca.store')}}" method="post">
+<h1>{{__("Add")}} Marca</h1>
+<form action="{{route('marcas.store')}}" method="post">
     @csrf
-
-    <label for="marca_nombre">Nombre<input type="text" name="marca_nombre" id="marca_nombre"></label>
-
-   <button type="submit">Guardar</button>
+    @include('marcas.forms')
+    <br>
+    <a href="{{route('marcas')}}">{{__("Go Back")}}</a>
+    <button type="submit">{{__("Save")}}</button>
 </form>

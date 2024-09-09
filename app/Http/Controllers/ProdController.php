@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveProductoRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,9 +31,14 @@ class ProdController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SaveProductoRequest $request)
     {
-        //
+        Producto::create($request->validated());
+
+        session()->flash('status','Producto añadido');
+
+        return redirect()->route('producto');
+
     }
 
     /**
