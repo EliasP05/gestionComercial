@@ -2,7 +2,7 @@
 <form action="{{route('products.store')}}" method="POST">
     @csrf
  
-    <label for="prod_cod">Code:<input type="text" name="prod_cod" id="prod_cod" value="{{old('prod_cod')}}"></label> <br>
+    <label for="prod_cod">Code:<input type="text" name="prod_cod" id="prod_cod" value="{{old('prod_cod')}}"></label><br>
         @error('prod_cod')    
             <small style="color:red">{{$message}}</small>
             <br>
@@ -18,8 +18,9 @@
         Select una marca
             <select name="marca_id" id="marca_id" >
                 <option value="" selected disabled>Select una marca</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                @foreach ($marcas as $marca)
+                    <option value="{{$marca->marca_id}}">{{$marca->marca_nombre}}</option>
+                @endforeach
             </select>
     </label><br>
         @error('marca_id')

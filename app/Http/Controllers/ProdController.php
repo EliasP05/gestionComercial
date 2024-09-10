@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveProductoRequest;
+use App\Models\Marca;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,8 @@ class ProdController extends Controller
      */
     public function index()
     {
-        $products=Producto::get();
+        $products=Producto::with('marca')->get();
+
         return view('product',['products'=>$products]);
     }
 
@@ -25,7 +27,8 @@ class ProdController extends Controller
      */
     public function create()
     {
-        return view('products.create',['product'=>new Producto()]);
+        $marcas=Marca::get();
+        return view('products.create',['marcas'=>$marcas],['product'=>new Producto()]);
     }
 
     /**
@@ -44,11 +47,14 @@ class ProdController extends Controller
     /**
      * Display the specified resource.
      */
-    public function edit(Producto $products)
+    public function edit($product)
     {
-       
-        // return view('products.edit',['products'=>$products]);
-        return $products;
+        // dd($product );
+       $products= Producto::with('marca')->find($product);
+        // dd($products);
+        $marcas=Marca::where('marca_id','!=',$products->marca_id)->get();
+            return view('products.edit',['product'=>$products],['marcas'=>$marcas] );
+
     }
 
     /**
@@ -58,9 +64,13 @@ class ProdController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SaveProductoRequest $request, Producto $product)
     {
-        //
+        dd($product);
+        $product->update($request->validated());
+
+        session()->flash('status','Producto modificado');
+        return redirect()->route('producto');
     }
 
     /**

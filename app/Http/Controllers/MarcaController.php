@@ -32,7 +32,7 @@ class MarcaController extends Controller
      */
     public function store(SaveMarcaRequest $request)
     {
-        // $validate=$request->validate([
+        // $validate=$request->validated([
         //     'marca_nombre'=>['required'],
         // ]);
         // $marca=new Marca();

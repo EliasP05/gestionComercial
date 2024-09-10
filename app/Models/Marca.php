@@ -13,4 +13,9 @@ class Marca extends Model
     protected $table = 'marcas'; // Asegúrate de que el nombre de la tabla esté bien
 
     protected $primaryKey = 'marca_id'; // Cambia 'marca_id' al nombre correcto de tu clave primaria
+
+    public function productos(){
+
+        return $this->hasMany(Producto::class,'marca_id');
+    }
 }

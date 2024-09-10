@@ -16,5 +16,7 @@ Route::delete('/marca/{marca}',[MarcaController::class,'destroy'])->name('marcas
 //producto
 Route::get('/productos',[ProdController::class,'index'])->name('producto');
 Route::get('/productos/create',[ProdController::class,'create',])->name('products.create');
-Route::Post('/productos',[ProdController::class,'store'])->name('products.store');
 Route::get('/productos/{product}/edit',[ProdController::class,'edit'])->name('products.edit');
+Route::patch('/productos/{producto}',[ProdController::class,'update'])->name('products.update');
+Route::Post('/productos',[ProdController::class,'store'])->name('products.store');
+
