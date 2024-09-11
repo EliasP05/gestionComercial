@@ -66,7 +66,7 @@ class ProdController extends Controller
      */
     public function update(SaveProductoRequest $request, Producto $product)
     {
-        dd($product);
+        // dd($request);
         $product->update($request->validated());
 
         session()->flash('status','Producto modificado');
@@ -76,8 +76,11 @@ class ProdController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Producto $product)
     {
-        //
+        $product->delete();
+
+        session()->flash('status', 'Producto Eliminado');
+        return redirect()->route('producto');
     }
 }
