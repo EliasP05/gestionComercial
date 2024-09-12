@@ -8,10 +8,9 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    @include('partials.navigation')
-    <h1>Inicio</h1>
-    <h2>Inicio</h2>
-    <h3>Inicio</h3>
-    <h5>Inicio</h5>
+    <div class="container">
+      @include('partials.navigation')
+        <h1 class="text-4xl font-bold">Inicio</h1>  
+    </div>
 </body>
 </html>
