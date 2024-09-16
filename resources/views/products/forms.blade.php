@@ -1,10 +1,14 @@
-<label for="prod_cod">Code:<input type="text" name="prod_cod" id="prod_cod" value="{{old('prod_cod',$product->prod_cod)}}"></label><br>
+
+    <label for="prod_cod" class="block text-sm font-medium">Code:
+        <input type="text" class="block w-full rounded-md  py-1.5 px-2 shadow-sm ring-1 ring-inset  focus: ring-blue-400  sm:text-sm sm:leading-6" name="prod_cod" id="prod_cod" value="{{old('prod_cod',$product->prod_cod)}}"></label><br>
         @error('prod_cod')    
             <small style="color:red">{{$message}}</small>
             <br>
         @enderror
     
-    <label for="prod_nom">Name:<input type="text" name="prod_nom" id="prod_nom" value="{{old('prod_nom',$product->prod_nom)}}"></label> <br>
+    <label for="prod_nom">Name:
+        <input type="text" class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" name="prod_nom" id="prod_nom" value="{{old('prod_nom',$product->prod_nom)}}">
+    </label> <br>
         @error('prod_nom')
             <small style="color:red">{{$message}}</small>
             <br>

@@ -8,8 +8,8 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    <div class="container">
-      @include('partials.navigation')
+    @include('partials.navigation')
+    <div class="container mx-auto mt-2">
         <h1 class="text-4xl font-bold">Inicio</h1>  
     </div>
 </body>
