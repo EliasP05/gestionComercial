@@ -1,4 +1,4 @@
-<header class="bg-gray-100 shadow-md px-6  ">
+<header class="bg-gray-100 shadow-md px-6 ">
 
     <div class="flex h-16 max-w-7xl mx-auto justify-between items-center">
         <button class="text-blue-400 rounded-full p-1 -ml-1 hover:bg-blue-400 hover:text-white transition-all ease-linear duration-200 
