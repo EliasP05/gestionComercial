@@ -6,9 +6,11 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'index')->name('inicio');
+// Route::view('/', 'index')->name('inicio');
 
-Route::view('login','login'); 
+Route::get('/',function(){
+    return view('dashboard');
+})->name('inicio'); 
 
 //marca
 Route::get('/marcas',[MarcaController::class,'index'])->name('marcas');
