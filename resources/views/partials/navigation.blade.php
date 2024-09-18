@@ -12,8 +12,9 @@
            
             <div class="space-x-8 hidden md:flex ml-8 ">
                 <a class="  cursor-pointer px-3 py-2  text-blue-400  font-bold" href="{{route('inicio')}}">Inicio</a>
+                <a class="  cursor-pointer px-3 py-2  text-gray-400 hover:text-blue-400 hover:underline transition-colors duration-200" href="{{route('usuarios')}}">Usuarios</a>   
                 <a class="  cursor-pointer px-3 py-2  text-gray-400 hover:text-blue-400 hover:underline transition-colors duration-200" href="{{route('producto')}}">Productos</a>
-                <a class="  cursor-pointer px-3 py-2  text-gray-400 hover:text-blue-400 hover:underline transition-colors duration-200" href="{{route('marcas')}}">Marca</a>    
+                <a class="  cursor-pointer px-3 py-2  text-gray-400 hover:text-blue-400 hover:underline transition-colors duration-200" href="{{route('marcas')}}">Marca</a>
             </div>
         </div>
         

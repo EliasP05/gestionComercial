@@ -17,18 +17,23 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+            'usu_dni',
+            'usu_name',
+            'usu_apellido',
+            'usu_email',
+            'usu_pass',
+            'tip_id',
     ];
+    protected $table = 'users'; // Asegúrate de que el nombre de la tabla esté bien
 
+    protected $primaryKey = 'usu_id'; // Cambia 'marca_id' al nombre correcto de tu clave primaria
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'usu_pass',
         'remember_token',
     ];
 
@@ -43,5 +48,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function tipo(){
+    
+        return $this->belongsTo(Tipo::class,'tip_id');
+   
     }
 }

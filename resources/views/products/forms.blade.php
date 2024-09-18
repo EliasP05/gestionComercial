@@ -9,7 +9,7 @@
     
     <div class="grid grid-cols-1  md:grid-cols-2 gap-5">
         <div class="">
-            <label for="prod_nom" class="block text-sm font-medium">Name:
+            <label for="prod_nom" class="block text-sm font-medium">{{__('Name')}}:
                 <input type="text" class="block w-full rounded-md py-1.5 px-2 font-normal shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-inset  sm:text-sm sm:leading-6" name="prod_nom" id="prod_nom" value="{{old('prod_nom',$product->prod_nom)}}">
             </label>
                 @error('prod_nom')
@@ -34,7 +34,7 @@
         
 <div class="mb-5">
     <label for="prod_descripcion" class="block text-sm font-medium">
-        Detail:    
+        {{__('Detail')}}:    
             <textarea name="prod_descripcion" id="prod_descripcion" rows="10" class="w-full ring-1 ring-inset ring-gray-300 rounded-md py-1.5 px-2 a font-normal sm:text-sm sm:leading-6">{{old('prod_descripcion',$product->prod_descripcion)}}</textarea>
     </label>
         @error('prod_descripcion')
@@ -58,14 +58,14 @@
             @enderror
         </div>
         <div class="block">
-            <label for="prod_costo" class=" font-bold text-sm">Cost:
+            <label for="prod_costo" class=" font-bold text-sm">{{__('Cost')}}:
             <input type="number" name="prod_costo" id="prod_costo" class=" block w-full rounded-md py-1.5 px-2 font-normal shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-inset  sm:text-sm sm:leading-6" value="{{old('prod_costo',$product->prod_costo)}}"></label> 
             @error('prod_costo')
                 <small style="color:red">{{$message}}</small>
             @enderror
         </div>
         <div class="block">
-            <label for="prod_precio" class=" font-bold text-sm">Price:
+            <label for="prod_precio" class=" font-bold text-sm">{{__('Price')}}:
             <input type="number" name="prod_precio" id="prod_precio" class=" block w-full rounded-md py-1.5 px-2 font-normal shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-inset  sm:text-sm sm:leading-6" value="{{old('prod_precio',$product->prod_precio)}}"></label>
             @error('prod_precio')
                 <small style="color:red">{{$message}}</small>

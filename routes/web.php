@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ProdController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('inicio');
+Route::view('/', 'index')->name('inicio');
+
+Route::view('login','login'); 
 
 //marca
 Route::get('/marcas',[MarcaController::class,'index'])->name('marcas');
@@ -21,3 +25,10 @@ Route::patch('/productos/{product}',[ProdController::class,'update'])->name('pro
 Route::Post('/productos',[ProdController::class,'store'])->name('products.store');
 Route::delete('/productos/{product}',[ProdController::class,'destroy'])->name('products.destroy');
 
+//usuarios
+Route::get('/usuarios',[UserController::class,'index'])->name('usuarios');
+Route::get('/usuarios/create',[UserController::class,'create'])->name('usuarios.create');
+Route::post('/usuarios',[UserController::class,'store'])->name('usuarios.store');
+Route::get('/usuarios/{user}/edit',[UserController::class,'edit'])->name('usuarios.edit');
+Route::patch('/usuarios/{user}',[UserController::class,'update'])->name('usuarios.update');
+Route::delete('/usuarios/{user}',[UserController::class,'destroy'])->name('usuarios.destroy');
