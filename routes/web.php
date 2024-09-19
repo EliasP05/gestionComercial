@@ -2,16 +2,28 @@
 
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ProdController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-// Route::view('/', 'index')->name('inicio');
+Route::get('/', function () {
+    return view('auth.login');
+});
 
-Route::get('/',function(){
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('inicio'); 
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+
+Route::view('/index', 'welcome')->name('inicio');
 //marca
 Route::get('/marcas',[MarcaController::class,'index'])->name('marcas');
 Route::get('/marcas/create',[MarcaController::class,'create'])->name('marcas.create');
@@ -34,3 +46,4 @@ Route::post('/usuarios',[UserController::class,'store'])->name('usuarios.store')
 Route::get('/usuarios/{user}/edit',[UserController::class,'edit'])->name('usuarios.edit');
 Route::patch('/usuarios/{user}',[UserController::class,'update'])->name('usuarios.update');
 Route::delete('/usuarios/{user}',[UserController::class,'destroy'])->name('usuarios.destroy');
+

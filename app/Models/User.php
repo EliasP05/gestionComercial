@@ -18,10 +18,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
             'usu_dni',
-            'usu_name',
+            'name',
             'usu_apellido',
-            'usu_email',
-            'usu_pass',
+            'email',
+            'password',
             'tip_id',
     ];
     protected $table = 'users'; // Asegúrate de que el nombre de la tabla esté bien
@@ -33,7 +33,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'usu_pass',
+        'password',
         'remember_token',
     ];
 

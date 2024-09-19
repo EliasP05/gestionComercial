@@ -9,6 +9,27 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
+        {{-- Apellido --}}
+        <div class="mt-4">
+            <x-input-label for="usu_apellido" :value="__('Last Name')" />
+            <x-text-input id="usu_apellido" class="block mt-1 w-full" type="text" name="usu_apellido" :value="old('name')" required autofocus autocomplete="usu_apellido" />
+            <x-input-error :messages="$errors->get('usu_apellido')" class="mt-2" />
+        </div>
+        {{-- DNI --}}
+        <div class="mt-4">
+            <x-input-label for="usu_dni" :value="'DNI'" />
+            <x-text-input id="usu_dni" class="block mt-1 w-full" type="number" name="usu_dni" :value="old('name')" required autofocus autocomplete="usu_dni" />
+            <x-input-error :messages="$errors->get('usu_apellido')" class="mt-2" />
+        </div>
+        {{--TIPO--}}
+        <div class="mt-4">
+            <select name="tip_id" id="tip_id" class="block w-full border ring-1  py-1.5 px-2 ring-gray-300 rounded-md font-normal">
+                <option value="{{$user->tip_id ?? " "}}" selected>{{$user->tipo->tip_nombre ?? "Seleccione un Tipo"}}</option>
+                @foreach ($tipos as $tipo)
+                    <option value="{{$tipo->tip_id}}">{{$tipo->tip_nombre}}</option >
+                @endforeach
+            </select>
+        </div>
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
@@ -40,7 +61,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
 

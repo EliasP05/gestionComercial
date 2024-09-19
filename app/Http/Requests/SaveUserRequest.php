@@ -22,12 +22,12 @@ class SaveUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'usu_dni'=>['required'],
-            'usu_name'=>['required'],
-            'usu_apellido'=>['required'],
-            'usu_email'=>['required'],
-            'usu_pass'=>['required'],
-            'tip_id'=>['required'],
+            'usu_dni'=>[''],
+            'name'=>[''],
+            'usu_apellido'=>[''],
+            'email'=>['required'],
+            'password'=>[''],
+            'tip_id'=>[''],
         ];
     }
 }

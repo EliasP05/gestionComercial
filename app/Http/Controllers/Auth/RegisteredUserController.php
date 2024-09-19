@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tipo;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -18,8 +19,8 @@ class RegisteredUserController extends Controller
      * Display the registration view.
      */
     public function create(): View
-    {
-        return view('auth.register');
+    {   $tipos=Tipo::get();
+        return view('auth.register',['tipos'=>$tipos]);
     }
 
     /**
@@ -31,13 +32,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'usu_dni'=>['required'],
+            'usu_apellido'=>['required'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'tip_id'=>['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'usu_apellido'=>$request->usu_apellido,
+            'usu_dni'=> $request->usu_dni,
+            'tip_id'=>$request->tip_id,
             'password' => Hash::make($request->password),
         ]);
 
@@ -45,6 +52,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard', absolute: false)); //redirige a la ruta  
     }
 }
