@@ -31,13 +31,13 @@
         </div>
         <div>
             <x-input-label for="usu_dni" :value="__('DNI')" />
-            <x-text-input id="usu_dni" name="usu_dni" type="text" class="mt-1 block w-full" :value="old('usu_dni', $user->usu_dni)" required autofocus autocomplete="usu_apellido" />
+            <x-text-input id="usu_dni" name="usu_dni" type="text" class="mt-1 block w-full" :value="old('usu_dni', $user->usu_dni)" required autofocus autocomplete="usu_dni" />
             <x-input-error class="mt-2" :messages="$errors->get('usu_dni')" />
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="email" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())

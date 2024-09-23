@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite('resources/css/app.css')
-</head>
-<body>
-    @include('partials.navigation')
-    <div class="container mx-auto mt-2">
+<x-layout meta-title="Marcas">
         <div class="flex justify-between items-center">
             <h1 class="text-4xl font-bold">Marcas</h1>
             <a class="bg-blue-400 text-white px-3 py-1 rounded-lg hover:text-blue-400 hover:bg-white border border-blue-400" href="{{route('marcas.create')}}">{{__("Add")}} marca</a>
@@ -41,7 +30,4 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-    
-</body>
-</html>
+    </x-layout>
