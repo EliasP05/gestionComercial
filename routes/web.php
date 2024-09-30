@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\CajaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ProdController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,3 +49,8 @@ Route::get('/usuarios/{user}/edit',[UserController::class,'edit'])->name('usuari
 Route::patch('/usuarios/{user}',[UserController::class,'update'])->name('usuarios.update');
 Route::delete('/usuarios/{user}',[UserController::class,'destroy'])->name('usuarios.destroy');
 
+//ventas
+route::get('/ventas',[VentaController::class,'index'])->name('ventas');
+
+//caja
+Route::get('/caja',[CajaController::class,'index'])->name('vender');

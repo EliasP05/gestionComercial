@@ -10,13 +10,16 @@
           
         
         <div class="flex items-center">
-            <a class="text-3xl font-medium hover:text-blue-400 hover:scale-95 transition-all ease-linear duration-200" href="">Depensa</a>
+            <a class="text-3xl font-medium hover:text-blue-400 hover:scale-95 transition-all ease-linear duration-200 md:hidden lg:block"  href="">Depensa</a>
            
             <div class="space-x-8 hidden md:flex ml-8 ">
-                <a class="  cursor-pointer px-3 py-2  text-blue-400  font-bold" href="{{route('inicio')}}">Inicio</a>
-                <a class="  cursor-pointer px-3 py-2  text-gray-400 hover:text-blue-400 hover:underline transition-colors duration-200" href="{{route('usuarios')}}">Usuarios</a>   
-                <a class="  cursor-pointer px-3 py-2  text-gray-400 hover:text-blue-400 hover:underline transition-colors duration-200" href="{{route('producto')}}">Productos</a>
-                <a class="  cursor-pointer px-3 py-2  text-gray-400 hover:text-blue-400 hover:underline transition-colors duration-200" href="{{route('marcas')}}">Marca</a>
+                <x-nav-link :href="route('inicio')" :active="request()->routeIs('inicio')">
+                    Inicio
+                </x-nav-link>
+                <x-nav-link :href="route('vender')" :active="request()->routeIs('vender')">Caja</x-nav-link>
+                <x-nav-link :href="route('usuarios')" :active="request()->routeIs('usuarios')">Usuarios</x-nav-link>
+                <x-nav-link :href="route('producto')" :active="request()->routeIs('producto')">Productos</x-nav-link>
+                <x-nav-link :href="route('marcas')" :active="request()->routeIs('marcas')">Marcas</x-nav-link>
             </div>
         </div>
         
