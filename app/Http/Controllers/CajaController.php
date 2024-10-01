@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Caja;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class CajaController extends Controller
@@ -35,8 +36,8 @@ class CajaController extends Controller
      * Display the specified resource.
      */
     public function show(Caja $caja)
-    {
-        //
+    {    $prod=Producto::get($caja);
+        dd($prod);
     }
 
     /**

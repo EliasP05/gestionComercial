@@ -7,6 +7,13 @@
                 {{$value}}
             </div>   
     @endsession
+    <div class="buscar">
+        <form action="{{route('buscaProd')}}" method="GET">
+            <x-text-input id="prod" name="prod"  placeholder="Busca un producto"/>
+            <x-input-error class="mt-2" :messages="$errors->get('prod')" />
+            <x-primary-button >Buscar</x-primary-button>
+        </form>
+    </div>
             <table>
                 <thead>
                     <tr>

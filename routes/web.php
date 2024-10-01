@@ -53,4 +53,5 @@ Route::delete('/usuarios/{user}',[UserController::class,'destroy'])->name('usuar
 route::get('/ventas',[VentaController::class,'index'])->name('ventas');
 
 //caja
+Route::get('/show',[CajaController::class,'show'])->name('buscaProd');
 Route::get('/caja',[CajaController::class,'index'])->name('vender');
