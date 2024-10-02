@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CajaController;
+use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ProdController;
 use App\Http\Controllers\ProfileController;
@@ -52,6 +52,8 @@ Route::delete('/usuarios/{user}',[UserController::class,'destroy'])->name('usuar
 //ventas
 route::get('/ventas',[VentaController::class,'index'])->name('ventas');
 
-//caja
-Route::get('/show',[CajaController::class,'show'])->name('buscaProd');
-Route::get('/caja',[CajaController::class,'index'])->name('vender');
+//carrito
+Route::POST('/show',[CarritoController::class,'show'])->name('buscaProd');
+Route::get('/carrito',[CarritoController::class,'index'])->name('carrito');
+route::get('/cancelar',[CarritoController::class,'cancelCarrito'])->name('cancelar');
+Route::post('/confirmar',[CarritoController::class,'store'])->name('confirmar');

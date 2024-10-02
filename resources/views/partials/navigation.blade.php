@@ -16,7 +16,7 @@
                 <x-nav-link :href="route('inicio')" :active="request()->routeIs('inicio')">
                     Inicio
                 </x-nav-link>
-                <x-nav-link :href="route('vender')" :active="request()->routeIs('vender')">Caja</x-nav-link>
+                <x-nav-link :href="route('carrito')" :active="request()->routeIs('vender')">Caja</x-nav-link>
                 <x-nav-link :href="route('usuarios')" :active="request()->routeIs('usuarios')">Usuarios</x-nav-link>
                 <x-nav-link :href="route('producto')" :active="request()->routeIs('producto')">Productos</x-nav-link>
                 <x-nav-link :href="route('marcas')" :active="request()->routeIs('marcas')">Marcas</x-nav-link>
