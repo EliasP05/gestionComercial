@@ -27,7 +27,7 @@ return new class extends Migration
     $table->foreign('marca_id') // Nombre del campo que será clave foránea
         ->references('marca_id')    // Campo referenciado en la tabla 'marcas'
         ->on('marcas')        // Tabla referenciada
-        ->onDelete('cascade'); // Acción en caso de eliminar la marca
+        ->onDelete('set null'); // Acción en caso de eliminar la marca
         });
     }
 
