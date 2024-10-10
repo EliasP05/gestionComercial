@@ -17,6 +17,7 @@
                     <th class="py-2">Descripcion</th>
                     <th class="py-2">Marca</th>
                     <th class="py-2">Precio</th>
+                    <th class="py-2">Stock</th>
                     <th class="rounded-tr-lg py-2">Accion</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                     <td class="py-1">{{$product->prod_descripcion}}</td>
                     <td class="py-1">{{$product->marca->marca_nombre ?? 'sin marca'}}</td>
                     <td class="py-1">$ {{$product->prod_precio}}</td>
+                    <td class="py-1">{{$product->prod_stock}}</td>
                     <td class="flex justify-center items-center space-x-1 py-1 ">
                         <a class=" bg-yellow-400 text-white px-2 rounded-md focus:ring-2" href="{{route('products.edit', $product)}}">{{__("Edit")}}</a>
                         <form action="{{route('products.destroy',$product)}}" method="POST">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Producto;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveProductoRequest extends FormRequest
@@ -23,7 +24,7 @@ class SaveProductoRequest extends FormRequest
     {
         return [
             'marca_id'=>['required'],
-            'prod_cod'=>['required'],
+            'prod_cod'=>['required','unique:'.Producto::class],
             'prod_nom'=>['required'],
             'prod_descripcion'=>['required','min:3'],
             'prod_costo'=>['required'],

@@ -57,4 +57,9 @@ class User extends Authenticatable implements MustVerifyEmail // si sacamos el i
         return $this->belongsTo(Tipo::class,'tip_id');
    
     }
+
+    public function ventas(){
+
+        return $this->hasMany(User::class,'usu_id');
+    }
 }

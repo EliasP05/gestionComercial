@@ -21,7 +21,7 @@ return new class extends Migration
         $table->foreign('usu_id')
             ->references('usu_id')
             ->on('users')
-            ->onDelete('set null');
+            ->onDelete('RESTRICT');
         });
 
        

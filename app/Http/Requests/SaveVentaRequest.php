@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveCajaRequest extends FormRequest
+class SaveVentaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class SaveCajaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'usu_id'=>['required'], //auth()->user->usu_id
+            'venta_total'=>['required'],
         ];
     }
 }

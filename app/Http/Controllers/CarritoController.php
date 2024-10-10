@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Caja;
+use App\Http\Requests\SaveVentaRequest;
+use App\Models\Detalle;
 use App\Models\Producto;
+use App\Models\Venta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CarritoController extends Controller
 {
@@ -16,25 +19,50 @@ class CarritoController extends Controller
         return view('carro');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(SaveVentaRequest $request)
     {
-        //
-    }
+        DB::beginTransaction();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+        try{
+            $venta=Venta::create($request->validated());
+            //dd($venta->id);
+            if($venta){
+                        $carrito=session()->get('carrito');
+                        foreach($carrito as $item)
+                        {
+                            Detalle::create([
+                            'venta_id' => $venta->id,
+                            'prod_id' => $item['codigo'],
+                            'det_prod_costo'=>$item['costo'],
+                            'det_prod_precio'=>$item['precio'],
+                            'det_cantidad'=>$item['cantidad'],
+                            ]);
+                            $producto=Producto::find($item['codigo']);
+                            if($producto){
+                                $producto->prod_stock-=$item['cantidad'];
+                                $producto->save();
+                            }
+                        }
+                        session()->forget('carrito');
+                        
+                        DB::commit();
+
+                        session()->flash('status','venta realizada');
+                        return redirect()->route('carrito');
+                    }
         
+        } catch(\Exception $e){
+            DB::rollback();
+
+            session()->forget('carrito');
+
+            session()->flash('status','Hubo un problema al realizar la venta');
+            return redirect()->route('carrito');
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Request $request)
     {   
         $producto = Producto::find($request->prod_cod);
@@ -52,6 +80,7 @@ class CarritoController extends Controller
                     'codigo'=>$producto->prod_cod,
                     'nombre'=>$producto->prod_nom,
                     'detalle'=>$producto->prod_descripcion,
+                    'costo'=>$producto->prod_costo,
                     'precio'=>$producto->prod_precio,
                     'cantidad'=>$request->cantidad,
                     'subtotal'=>$producto->prod_precio
@@ -77,27 +106,6 @@ public function cancelCarrito(){
     session()->flash('status','venta cancelada');
     return redirect()->route('carrito');
 }    
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Caja $caja)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Caja $caja)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Caja $caja)
-    {
-        
-    }
+   
 }

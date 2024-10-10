@@ -16,7 +16,7 @@
             <x-primary-button >Buscar</x-primary-button>
         </form>
     </div>
-    <form action="{{route('confirmar')}}" action="POST">
+    <form action="{{route('confirmar')}}" method="POST">
         @csrf
     
             <table>
@@ -62,7 +62,8 @@
                         </td>
                         <td>
                             @if (session('carrito'))
-                                {{$total}}
+                            <input type="number" name="venta_total" value="{{$total}}" >
+                                <input type="text" name="usu_id" value="1" >
                             @endif
                         </td>
                     </tr>
