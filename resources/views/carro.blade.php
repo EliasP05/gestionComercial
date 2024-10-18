@@ -16,8 +16,7 @@
             <x-primary-button >Buscar</x-primary-button>
         </form>
     </div>
-    <form action="{{route('confirmar')}}" method="POST">
-        @csrf
+ 
     
             <table>
                 <thead>
@@ -28,6 +27,7 @@
                         <th>precio unit.</th>
                         <th>cantidad</th>
                         <th>subtotal</th>
+                        <th>Accion</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,8 +42,14 @@
                                     <td>{{$producto['nombre']}}</td>
                                     <td>{{$producto['detalle']}}</td>
                                     <td>{{$producto['precio']}}</td>
-                                    <td>{{$producto['cantidad']}}</td>   
+                                    <td>
+                                        <form action="{{route('actualizarCarro',['producto'=>$producto['codigo']])}}" method="GET">
+                                            <input type="number" name="cantidad" value="{{$producto['cantidad']}}"> 
+                                             <button type="submit">Actualizar</button>
+                                        </form>
+                                    </td>   
                                     <td>{{$producto['subtotal']}}</td>
+                                    <td><a href="{{route('carrito.quitarItem',['item'=>$producto['codigo']])}}">Eliminar</a></td>
                                 </tr> 
                                 @php
                                     $total+=$producto['subtotal'];
@@ -60,6 +66,8 @@
                         <td>
                             total
                         </td>
+                        <form action="{{route('confirmar')}}" method="POST">
+                            @csrf        
                         <td>
                             @if (session('carrito'))
                             <input type="number" name="venta_total" value="{{$total}}" >
@@ -77,5 +85,5 @@
                     </tr>
                 </tfoot>
             </table>
-    </form>
+                        </form>
 </x-layout>

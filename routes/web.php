@@ -53,7 +53,9 @@ Route::delete('/usuarios/{user}',[UserController::class,'destroy'])->name('usuar
 route::get('/ventas',[VentaController::class,'index'])->name('ventas');
 
 //carrito
-Route::POST('/show',[CarritoController::class,'show'])->name('buscaProd');
+Route::POST('/carrito/show',[CarritoController::class,'show'])->name('buscaProd');
 Route::get('/carrito',[CarritoController::class,'index'])->name('carrito');
-route::get('/cancelar',[CarritoController::class,'cancelCarrito'])->name('cancelar');
-Route::post('/confirmar',[CarritoController::class,'store'])->name('confirmar');
+Route::get('/carrito/eliminarItem/{item}',[CarritoController::class,'quitarItem'])->name('carrito.quitarItem');
+Route::GET('/carrito/actualizar/{producto}',[CarritoController::class,'updateCarro'])->name('actualizarCarro');
+route::get('/carrito/cancelar',[CarritoController::class,'cancelCarrito'])->name('cancelar');
+Route::POST('/carrito/confirmar',[CarritoController::class,'store'])->name('confirmar');

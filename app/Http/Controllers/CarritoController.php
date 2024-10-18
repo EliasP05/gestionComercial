@@ -98,6 +98,29 @@ class CarritoController extends Controller
         }     
     }
 
+   public function quitarItem($item){
+
+    $carrito=session()->get('carrito');
+    if(isset($carrito[$item])){
+        unset($carrito[$item]);
+
+    }
+
+    session()->forget('key');
+    session()->put('carrito', $carrito);
+    return redirect()->route('carrito'); 
+}
+
+public function updateCarro(Request $request,$producto){
+    $carrito=session()->get('carrito');
+    //dd($request ,$producto);
+    $carrito[$producto]['cantidad']=$request->cantidad;
+    $carrito[$producto]['subtotal']=$request->cantidad*$carrito[$producto]['precio'];
+
+
+    session()->put('carrito', $carrito);
+    return view('carro');
+}
 
 public function cancelCarrito(){
 
