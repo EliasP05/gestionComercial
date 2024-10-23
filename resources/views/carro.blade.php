@@ -1,58 +1,52 @@
 <x-layout>
-    <div class="flex justify-between items-center">
-        <h1 class="text-4xl font-bold">Caja</h1>  
-    </div>
-    @session('status')
+    <div class="flex justify-between items-center mb-2">
+        <h1 class="text-4xl font-bold">Caja</h1> 
+        @session('status')
             <div class="status text-gray-400">
                 {{$value}}
             </div>   
-    @endsession
-    <div class="buscar">
-        <form action="{{route('buscaProd')}}" method="POST">
-            @csrf
-            <x-text-input id="prod_cod" name="prod_cod"  placeholder="Busca un producto"/>
-            <input type="number" name="cantidad" id="cantidad" value="1">
-            <x-input-error class="mt-2" :messages="$errors->get('prod_cod')" />
-            <x-primary-button >Buscar</x-primary-button>
-        </form>
+        @endsession  
     </div>
- 
-    
-            <table>
-                <thead>
-                    <tr>
-                        <th>cod</th>
+   
+    @include('carro.buscador')
+
+<div class="grid md:grid-cols-4 w-full space-x-5 mt-8">
+        <div class="col-span-3">
+            <table class=" w-full table border-collapse shadow-md">
+                <thead >
+                    <tr class="bg-slate-200">
+                        <th class="rounded-tl-lg py-2">cod</th>
                         <th>Producto</th>
                         <th>Descripcion</th>
                         <th>precio unit.</th>
                         <th>cantidad</th>
                         <th>subtotal</th>
-                        <th>Accion</th>
+                        <th class="rounded-tr-lg py-2">Accion</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-center">
                     @php
-                        $total=0;
+                        $total=0.00;
                     @endphp
                         @if (session('carrito'))
                             @foreach (session('carrito') as $producto)
                             
-                                <tr>
+                                <tr class="">
                                     <td>{{$producto['codigo']}}</td> 
                                     <td>{{$producto['nombre']}}</td>
                                     <td>{{$producto['detalle']}}</td>
-                                    <td>{{$producto['precio']}}</td>
+                                    <td>${{$producto['precio']}}</td>
                                     <td>
                                         <form action="{{route('actualizarCarro',['producto'=>$producto['codigo']])}}" method="GET">
-                                            <input type="number" name="cantidad" value="{{$producto['cantidad']}}"> 
-                                             <button type="submit">Actualizar</button>
+                                            <input type="number" name="cantidad" value="{{$producto['cantidad']}}" class="w-10 px-0 rounded-md text-center border-slate-400"> 
+                                             <button type="submit" class="bg-blue-400 p-1 rounded-md text-white hover:bg-slate-700">Actualizar</button>
                                         </form>
                                     </td>   
-                                    <td>{{$producto['subtotal']}}</td>
-                                    <td><a href="{{route('carrito.quitarItem',['item'=>$producto['codigo']])}}">Eliminar</a></td>
+                                    <td>${{$producto['subtotal']}}</td>
+                                    <td><a href="{{route('carrito.quitarItem',['item'=>$producto['codigo']])}}" class="bg-red-600 p-1 rounded-md text-white hover:bg-slate-700">Eliminar</a></td>
                                 </tr> 
                                 @php
-                                    $total+=$producto['subtotal'];
+                                    $total=bcadd($producto['subtotal'],$total,2);
                                 @endphp
                             @endforeach 
                         @else
@@ -61,29 +55,12 @@
                         
                     
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            total
-                        </td>
-                        <form action="{{route('confirmar')}}" method="POST">
-                            @csrf        
-                        <td>
-                            @if (session('carrito'))
-                            <input type="number" name="venta_total" value="{{$total}}" >
-                                <input type="text" name="usu_id" value="1" >
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="{{route('cancelar')}}">cancelar</a>
-                        </td>
-                        <td>
-                           <button type="submit">Confirmar</button>
-                        </td>
-                    </tr>
-                </tfoot>
             </table>
-                        </form>
+                
+        </div>
+        <div class="w-full col-span-1">
+            @include('carro.total')
+        </div>
+    </div>
+  
 </x-layout>

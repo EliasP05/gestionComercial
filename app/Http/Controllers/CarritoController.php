@@ -16,7 +16,7 @@ class CarritoController extends Controller
      */
     public function index()
     {
-        return view('carro');
+        return view('carro'); 
     }
 
     public function store(SaveVentaRequest $request)
@@ -73,7 +73,7 @@ class CarritoController extends Controller
             if(isset($carrito[$producto->prod_cod])){
 
                 $carrito[$producto->prod_cod]['cantidad']+=1;
-                $carrito[$producto->prod_cod]['subtotal']=$carrito[$producto->prod_cod]['cantidad']*$carrito[$producto->prod_cod]['precio'];
+                $carrito[$producto->prod_cod]['subtotal']=bcmul($carrito[$producto->prod_cod]['cantidad'],$carrito[$producto->prod_cod]['precio'],2);
             } else{
                 
                 $carrito[$producto->prod_cod]=[
@@ -91,7 +91,7 @@ class CarritoController extends Controller
             session()->put('carrito', $carrito);
 
             session()->flash('status','Producto agregado');
-            return view('carro');
+            return redirect()->route('carrito');
         } else {
             session()->flash('status','El producto no se encuentra');
             return redirect()->route('carrito');
@@ -115,7 +115,7 @@ public function updateCarro(Request $request,$producto){
     $carrito=session()->get('carrito');
     //dd($request ,$producto);
     $carrito[$producto]['cantidad']=$request->cantidad;
-    $carrito[$producto]['subtotal']=$request->cantidad*$carrito[$producto]['precio'];
+    $carrito[$producto]['subtotal']=bcmul($request->cantidad,$carrito[$producto]['precio'],2);
 
 
     session()->put('carrito', $carrito);
