@@ -20,8 +20,9 @@ class Venta extends Model
         return $this->belongsTo(User::class,'usu_id');
     }
 
+// Relación uno a muchos: Una venta tiene muchos detalles de ventas
     public function detalle(){
 
-        return $this->hasMany(Detalle::class,'venta_id');
+        return $this->hasMany(Detalle::class,'venta_id','venta_id');
     }
 }

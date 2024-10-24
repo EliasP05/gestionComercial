@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detalle;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $venta=Venta::get();
+        $venta=Venta::with('detalle.producto')->get();
+        //dd($venta);
         return view('ventas',['ventas'=>$venta]);
     }
 

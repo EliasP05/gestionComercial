@@ -17,9 +17,17 @@ class Detalle extends Model
 ];
 
     protected $table='det_ventas';
+    protected $primarykey=null;
+    public $incrementing = false;
 
 
-    // public function venta(){
-    //     return $this->belongsTo(Venta::class,'venta_id'); 
-    // }
+
+     // Relación muchos a uno: Un detalle pertenece a una venta
+    public function venta(){
+        return $this->belongsTo(Venta::class,'venta_id','venta_id'); 
+    }
+    public function producto(){
+        return $this->belongsTo(Producto::class,'prod_id','prod_id'); 
+    }
 }
+
