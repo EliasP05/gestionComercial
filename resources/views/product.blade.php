@@ -1,7 +1,10 @@
 <x-layout meta-title="Productos">
             <div class="flex justify-between items-center">
-                <h1 class="text-4xl font-bold">Productos</h1>  
-                <a class=" bg-blue-400 text-white px-3 py-1 rounded-lg hover:text-blue-400 hover:bg-white border border-blue-400" href="{{route('products.create')}}">{{__("Add")}} producto</a>
+                <h1 class="text-4xl font-bold">Productos</h1>
+                <div>
+                    <a class=" bg-blue-400 text-white px-3 py-1 rounded-lg hover:text-blue-400 hover:bg-white border border-blue-400" href="{{route('products.create')}}">{{__("Add")}} producto</a>
+                    <a class="bg-gray-400 text-white px-3 py-1 rounded-lg hover:text-gray-400 hover:bg-white border border-gray-400" href="{{route('products.pdf')}}">Descargar</a>
+                </div>
             </div>
         
         @session('status')

@@ -20,12 +20,13 @@ class CarritoController extends Controller
     }
 
     public function store(SaveVentaRequest $request)
-    {
+    {//dd($request);
         DB::beginTransaction();
 
         try{
             $venta=Venta::create($request->validated());
             //dd($venta->id);
+            
             if($venta){
                         $carrito=session()->get('carrito');
                         foreach($carrito as $item)
@@ -52,6 +53,7 @@ class CarritoController extends Controller
                     }
         
         } catch(\Exception $e){
+           // dd($e);
             DB::rollback();
 
             session()->forget('carrito');
@@ -87,46 +89,72 @@ class CarritoController extends Controller
                 ];
 
             }
-            //dd($carrito);
+           
             session()->put('carrito', $carrito);
 
             session()->flash('status','Producto agregado');
-            return redirect()->route('carrito');
         } else {
-            session()->flash('status','El producto no se encuentra');
-            return redirect()->route('carrito');
-        }     
+            session()->flash('error','El producto no se encuentra');
+        }
+        
+        return redirect()->route('carrito');
     }
 
    public function quitarItem($item){
 
-    $carrito=session()->get('carrito');
+    $carrito=session()->get('carrito',[]);
     if(isset($carrito[$item])){
-        unset($carrito[$item]);
 
+        unset($carrito[$item]);
+        session()->put('carrito', $carrito);
+
+        session()->flash('status', 'Producto quitado.');
+    
+    }else{
+        session()->flash('error', 'Producto no encontrado en el carrito.');
     }
 
-    session()->forget('key');
-    session()->put('carrito', $carrito);
     return redirect()->route('carrito'); 
 }
 
-public function updateCarro(Request $request,$producto){
-    $carrito=session()->get('carrito');
-    //dd($request ,$producto);
-    $carrito[$producto]['cantidad']=$request->cantidad;
-    $carrito[$producto]['subtotal']=bcmul($request->cantidad,$carrito[$producto]['precio'],2);
+public function updateCarro(Request $request, $producto){
 
+    $carrito=session()->get('carrito',[]);
 
-    session()->put('carrito', $carrito);
-    return view('carro');
+    if(isset($carrito[$producto])){
+        $cantidad=(int)$request->cantidad;
+
+        if($cantidad>0){
+
+            $carrito[$producto]['cantidad']=$cantidad;
+            $carrito[$producto]['subtotal']=bcmul($cantidad,$carrito[$producto]['precio'],2);
+            session()->put('carrito', $carrito);
+
+            session()->flash('status', 'Cantidad actualizada');
+
+        }else{
+            unset($carrito[$producto]);
+            session()->put('carrito', $carrito);
+
+            session()->flash('status', 'Producto quitado.');
+        }
+    }else{
+        session()->flash('error', 'Producto no encontrado en el carrito.');
+    }
+    
+    return redirect()->route('carrito');
 }
 
 public function cancelCarrito(){
+    $carrito=session()->get('carrito',[]);
+    if(isset($carrito)){
 
-    session()->forget('carrito');
-
-    session()->flash('status','venta cancelada');
+        session()->forget('carrito');
+        session()->flash('status','Venta cancelada');
+    }else{
+        session()->flash('error','Error, no es posible cancelar la venta');
+    }
+    
     return redirect()->route('carrito');
 }    
 

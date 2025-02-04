@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Detalle;
 use App\Models\Venta;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class VentaController extends Controller
@@ -65,4 +66,13 @@ class VentaController extends Controller
     {
         //
     }
+    public function generarPdf($venta_id){
+        $venta = Venta::with('detalle.producto')
+                ->where('venta_id',$venta_id)
+                ->get();
+        //dump($venta);
+        $pdf=Pdf::loadView('ventas.pdf',compact('venta'));
+        //return $pdf->download('comprobante.pdf');
+        return view('ventas.pdf',['venta'=>$venta]);
+    } 
 }

@@ -17,7 +17,7 @@ class Detalle extends Model
 ];
 
     protected $table='det_ventas';
-    protected $primarykey=null;
+    protected $primarykey=['venta_id', 'prod_id'];
     public $incrementing = false;
 
 

@@ -8,6 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -15,5 +16,6 @@
     <div class="container mx-auto mt-2">
         {{$slot}}
     </div>
+    <script src="/js/script.js"></script>
 </body>
 </html>

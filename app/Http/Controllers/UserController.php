@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveUserRequest;
 use App\Models\Tipo;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -77,5 +78,11 @@ class UserController extends Controller
         
         session()->flash('status','Registro Eliminado');
         return redirect()->route('usuarios');
+    }
+    public function generarPdf(){
+        $usuarios=User::with('tipo')->get();
+        $pdf=Pdf::loadView('usuarios.pdf', compact('usuarios'));
+        //return $pdf->download('reporteUser.pdf');
+        return view('usuarios.pdf',['usuarios'=>$usuarios]);
     }
 }

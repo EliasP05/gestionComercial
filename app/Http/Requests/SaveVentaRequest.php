@@ -24,6 +24,8 @@ class SaveVentaRequest extends FormRequest
         return [
             'usu_id'=>['required'], //auth()->user->usu_id
             'venta_total'=>['required'],
+            'dinero_cliente'=>['required'],
+            'dinero_vuelto'=>['required']
         ];
     }
 }

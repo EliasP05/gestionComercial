@@ -2,10 +2,15 @@
     <div class="flex justify-between items-center mb-2">
         <h1 class="text-4xl font-bold">Caja</h1> 
         @session('status')
-            <div class="status text-gray-400">
+            <div class="status text-green-500">
                 {{$value}}
             </div>   
-        @endsession  
+        @endsession
+        @session('error')
+            <div class="status text-red-500">
+                {{$value}}
+            </div>
+        @endsession 
     </div>
    
     @include('carro.buscador')

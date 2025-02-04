@@ -1,7 +1,10 @@
 <x-layout meta-title="Usuarios">
             <div class="flex justify-between items-center">
-                <h1 class="text-4xl font-bold">Usuarios</h1>  
-                <a class=" bg-blue-400 text-white px-3 py-1 rounded-lg hover:text-blue-400 hover:bg-white border border-blue-400" href="{{route('usuarios.create')}}">{{__("Add")}} Usuario</a>
+                <h1 class="text-4xl font-bold">Usuarios</h1>
+                <div>
+                    <a class=" bg-blue-400 text-white px-3 py-1 rounded-lg hover:text-blue-400 hover:bg-white border border-blue-400" href="{{route('usuarios.create')}}">{{__("Add")}} Usuario</a>
+                    <a class="bg-gray-400 text-white px-3 py-1 rounded-lg hover:text-gray-400 hover:bg-white border border-gray-400" href="{{route('usuarios.pdf')}}">Descargar</a>
+                </div>
             </div>
         
         @session('status')
@@ -64,4 +67,4 @@
                 @endforeach
             </tbody>
         </table>
-</x-layout>>
+</x-layout>

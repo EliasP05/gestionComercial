@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Requests\SaveProductoRequest;
 use App\Models\Marca;
 use App\Models\Producto;
+use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +33,7 @@ class ProdController extends Controller
         $marcas=Marca::get();
         return view('products.create',['marcas'=>$marcas],['product'=>new Producto()]);
     }
-
+              
     /**
      * Store a newly created resource in storage.
      */
@@ -83,4 +86,18 @@ class ProdController extends Controller
         session()->flash('status', 'Producto Eliminado');
         return redirect()->route('producto');
     }
+    /**
+     * Generador PDF
+     */
+
+     public function generarPdf()
+     {
+        $products=Producto::with('marca')->get();
+        $pdf=FacadePdf::loadView('products.pdf',compact('products'));
+
+        //return $pdf->download('reporteProd.pdf');
+        return view('products.pdf',['products'=>$products]);
+
+     }
+
 }
