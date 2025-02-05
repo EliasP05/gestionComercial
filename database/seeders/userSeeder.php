@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class userSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class userSeeder extends Seeder
             'password' => Hash::make('password'),
             'tip_id' => $adminId,
             'usu_dni' => 43438715
-        ]);
+        ])->assignRole('Administrador');
+        //$user->assignRole('Administrador');
     }
 }
