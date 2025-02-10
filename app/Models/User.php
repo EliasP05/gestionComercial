@@ -26,7 +26,6 @@ class User extends Authenticatable implements MustVerifyEmail // si sacamos el i
             'usu_apellido',
             'email',
             'password',
-            'tip_id',
     ];
     protected $table = 'users'; // Asegúrate de que el nombre de la tabla esté bien
 
@@ -54,11 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail // si sacamos el i
         ];
     }
 
-    public function tipo(){
+    // public function tipo(){
     
-        return $this->belongsTo(Tipo::class,'tip_id');
+    //     return $this->belongsTo(Tipo::class,'tip_id');
    
-    }
+    // }
 
     public function ventas(){
 

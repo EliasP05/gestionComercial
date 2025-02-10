@@ -12,7 +12,7 @@
             text-align: center
         }
         table{ 
-            width: 90%;
+            width: 30%;
             margin: auto;
             text-align: center;
             border-collapse: collapse;
@@ -47,6 +47,7 @@
             $sub=0.00;
         @endphp
         <div class="encabezado">
+            
             <div>Venta N°: {{$venta[0]->venta_id}}</div>
             <div>vendedor: {{$venta[0]->usu_id}}</div>
             <div>Fecha y hora: {{$venta[0]->created_at}}</div>
@@ -66,7 +67,7 @@
        
             <tr>
                 <td>{{ $detalle->det_cantidad}}</td>
-                <td>{{ $detalle->prod_nom}}</td>
+                <td>{{ $detalle->producto->prod_nom}}</td>
                 <td>${{$detalle->det_prod_precio}}</td>
                 
                 <td>

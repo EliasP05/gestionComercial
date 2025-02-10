@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tipo extends Model
 {
-    use HasFactory;
-    protected $fillable=[
-                        'tip_nombre',
-                        ];
+    // use HasFactory;
+    // protected $fillable=[
+    //                     'tip_nombre',
+    //                     ];
 
-    protected $table = 'tipo_usuario'; // Asegúrate de que el nombre de la tabla esté bien
+    // protected $table = 'tipo_usuario'; // Asegúrate de que el nombre de la tabla esté bien
 
-    protected $primaryKey = 'tip_id'; // Cambia 'marca_id' al nombre correcto de tu clave primaria
+    // protected $primaryKey = 'tip_id'; // Cambia 'marca_id' al nombre correcto de tu clave primaria
     
-    public function usuario(){
+    // public function usuario(){
     
-        return $this->belongsTo(User::class,'tip_id');
+    //     return $this->belongsTo(User::class,'tip_id');
    
-    }
+    // }
 }

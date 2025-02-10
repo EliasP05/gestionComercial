@@ -30,7 +30,10 @@
                     <td class="py-1">{{$user->name}}</td>
                     <td class="py-1">{{$user->usu_apellido}}</td>
                     <td class="py-1">{{$user->email}}</td>
-                    <td class="py-1">{{$user->tipo->tip_nombre ?? ''}}</td>
+                    @foreach ($user->roles as $roles)
+                      <td class="py-1">{{$roles->name ?? ''}}</td>  
+                    @endforeach
+                    
                     <td class="flex justify-center items-center space-x-1 py-1 ">
                         <a class=" bg-yellow-400 text-white px-2 rounded-md focus:ring-2" href="{{route('usuarios.edit', $user)}}">{{__("Edit")}}</a>
                         <form action="{{route('usuarios.destroy',$user)}}" method="POST">

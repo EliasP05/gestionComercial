@@ -7,6 +7,7 @@ use App\Models\Tipo;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $usuarios=User::with('tipo')->get();
+        $usuarios=User::with('roles')->get();
         return view('user',['usuarios'=>$usuarios]);
     }
 
@@ -24,7 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $tipos=Tipo::get();
+        //$tipos=Tipo::get();
+        $tipos=Role::all();
         return view('usuarios.create',['user' => new User],['tipos'=>$tipos]);
     }
 
@@ -32,8 +34,11 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(SaveUserRequest $request)
-    {
-        User::create($request->validated());
+    {   
+    //dd($request);
+        $role=Role::find($request->tip_id);
+        User::create($request->validated())->assignRole($role);
+    
 
         session()->flash('status','Usuario registrado');
         return redirect()->route('usuarios');
@@ -52,9 +57,9 @@ class UserController extends Controller
      */
     public function edit($user)
     {
-        $usuario= User::with('tipo')->find($user);
+        $usuario= User::with('roles')->find($user);
 
-        $tipos=Tipo::where('tip_id','!=',$usuario->tip_id)->get();
+        $tipos=Role::where('id','!=',$usuario->roles->first()->id)->get();
         return view('usuarios.edit',['user'=>$usuario],['tipos'=>$tipos]);
     }
 
@@ -63,7 +68,10 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, User $user)
     {
+        $role=Role::find($request->tip_id);
+        $user->roles()->detach();
         $user->update($request->validated());
+        $user->assignRole($role); //aqui debo cambiar el codigo ya que me genera un resgitro nuevo en vez de modificar
 
         session()->flash('status','Usuario Acualizado');
         return redirect()->route('usuarios');

@@ -16,13 +16,12 @@ class userSeeder extends Seeder
     {
         $this->call(Tipo_usuarioSeeder::class);
         // User::factory(10)->create();
-        $adminId= Tipo::where('tip_nombre','Administrador')->pluck('tip_id')->first();
+        //$adminId= Tipo::where('tip_nombre','Administrador')->pluck('tip_id')->first();
         User::factory()->create([
             'name' => 'Elias',
             'usu_apellido' => 'Peralta',
             'email' => 'eliasalberto0505@gmail.com',
             'password' => Hash::make('password'),
-            'tip_id' => $adminId,
             'usu_dni' => 43438715
         ])->assignRole('Administrador');
         //$user->assignRole('Administrador');

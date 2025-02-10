@@ -15,8 +15,8 @@ class Tipo_usuarioSeeder extends Seeder
      */
     public function run(): void
     {
-        Tipo::create(['tip_nombre' =>'Administrador']);
-        Tipo::create(['tip_nombre' =>'Cajero']);
+        //Tipo::create(['tip_nombre' =>'Administrador']);
+        //Tipo::create(['tip_nombre' =>'Cajero']);
         
         $admin=Role::create(['name'=>'Administrador']);
         $cajero=Role::create(['name'=>'Cajero']);

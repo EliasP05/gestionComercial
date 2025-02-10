@@ -27,7 +27,6 @@ class SaveUserRequest extends FormRequest
             'usu_apellido'=>[''],
             'email'=>['required'],
             'password'=>[''],
-            'tip_id'=>[''],
         ];
     }
 }
