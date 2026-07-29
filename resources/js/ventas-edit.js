@@ -75,7 +75,6 @@ export function initVentaEdit() {
         if (!e.target.classList.contains('btn-quitar')) return;
 
         const row = e.target.closest('tr[data-prod-id]');
-        if (!confirm('¿Quitar este producto de la venta?')) return;
 
         e.target.disabled = true;
         axios

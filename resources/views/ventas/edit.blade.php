@@ -40,7 +40,10 @@
                         <td class="py-1 subtotal" data-value="{{ $subtotal }}">$ {{ number_format($subtotal, 2) }}
                         </td>
                         <td class="py-1">
-                            <button type="button" class="btn-delete btn-quitar">Quitar</button>
+                            <label for="tw-modal{{ $item['prod_id'] }}" class="btn-delete cursor-pointer">
+                                Quitar
+                                @include('ventas.modalEdit', ['item' => $item])
+                            </label>
                         </td>
                     </tr>
                 @empty
