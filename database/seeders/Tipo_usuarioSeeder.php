@@ -37,6 +37,7 @@ class Tipo_usuarioSeeder extends Seeder
         Permission::create(['name'=>'productos.destroy'])->assignRole($admin);
 
         Permission::create(['name'=>'ventas.index'])->syncRoles([$admin,$cajero]);
+        Permission::create(['name'=>'ventas.edit'])->assignRole($admin);
         Permission::create(['name'=>'ventas.pdf'])->syncRoles([$admin,$cajero]);
     }
 }

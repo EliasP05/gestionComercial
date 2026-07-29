@@ -25,5 +25,13 @@ class userSeeder extends Seeder
             'usu_dni' => 43438715
         ])->assignRole('Administrador');
         //$user->assignRole('Administrador');
+
+        User::factory()->create([
+            'name' => 'Juan',
+            'usu_apellido' => 'Crisanti',
+            'email' => 'correo@gmail.com',
+            'password' => Hash::make('password'),
+            'usu_dni' => 43438715
+        ])->assignRole('Cajero');
     }
 }

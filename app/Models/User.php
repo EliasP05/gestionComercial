@@ -60,7 +60,6 @@ class User extends Authenticatable implements MustVerifyEmail // si sacamos el i
     // }
 
     public function ventas(){
-
-        return $this->hasMany(User::class,'usu_id');
+        return $this->hasMany(Venta::class,'usu_id','usu_id');
     }
 }

@@ -10,12 +10,12 @@ class Venta extends Model
     use HasFactory;
     protected $fillable=['usu_id',
                         'venta_total',
-                    'dinero_cliente',
-                'dinero_vuelto'];
+                        'dinero_cliente',
+                        'dinero_vuelto'];
 
 
     protected $table='ventas';
-    protected $primarykey='venta_id';
+    protected $primaryKey='venta_id';
 
 
     public function usuario(){

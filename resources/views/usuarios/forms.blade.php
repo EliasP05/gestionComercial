@@ -40,8 +40,7 @@
                 <small class="text-red-500">{{$message}}</small>
             @enderror
     </div>
-
-    <div class="  mb-5 ">
+    <div class="mb-5">
         <div class="block">
             <label for="email" class="font-bold text-sm">{{__('E-Mail')}}:
             <input type="email" name="email" id="email" class=" block w-full rounded-md py-1.5 px-2 font-normal shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-inset  sm:text-sm sm:leading-6" value="{{old('email',$user->email)}}"></label> 

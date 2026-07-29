@@ -10,9 +10,9 @@ class Marca extends Model
     use HasFactory;
     protected $fillable=['marca_nombre'];
     
-    protected $table = 'marcas'; // Asegúrate de que el nombre de la tabla esté bien
+    protected $table = 'marcas';
 
-    protected $primaryKey = 'marca_id'; // Cambia 'marca_id' al nombre correcto de tu clave primaria
+    protected $primaryKey = 'marca_id'; 
 
     public function productos(){
 

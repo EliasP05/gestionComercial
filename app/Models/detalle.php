@@ -17,7 +17,8 @@ class Detalle extends Model
 ];
 
     protected $table='det_ventas';
-    protected $primarykey=['venta_id', 'prod_id'];
+    // Eloquent no soporta clave primaria compuesta (venta_id, prod_id): no usar
+    // ->save()/->delete() sobre una instancia, actualizar/eliminar vía query builder.
     public $incrementing = false;
 
 

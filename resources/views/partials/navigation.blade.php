@@ -18,7 +18,9 @@
                 </x-nav-link>
                 <x-nav-link :href="route('carrito')" :active="request()->routeIs('carrito')">Caja</x-nav-link>
                 <x-nav-link :href="route('ventas')" :active="request()->routeIs('ventas')">Ventas</x-nav-link>
-                <x-nav-link :href="route('usuarios')" :active="request()->routeIs('usuarios')">Usuarios</x-nav-link>
+                @if (Auth()->user()->hasRole('Administrador'))
+                    <x-nav-link :href="route('usuarios')" :active="request()->routeIs('usuarios')">Usuarios</x-nav-link>
+                @endif
                 <x-nav-link :href="route('producto')" :active="request()->routeIs('producto')">Productos</x-nav-link>
                 <x-nav-link :href="route('marcas')" :active="request()->routeIs('marcas')">Marcas</x-nav-link>
             </div>

@@ -60,10 +60,10 @@
                     <td class="py-1">{{$user->usu_email}}</td>
                     <td class="py-1">{{$user->tipo->tipo_nombre ?? ''}}</td>
                     <td class="flex justify-center items-center space-x-1 py-1 ">
-                        <button class=" bg-yellow-400 text-white px-2 rounded-md focus:ring-2" href="{{route('usuarios.edit', $user)}}">{{__("Edit")}}</button>
+                        <button class="btn-update" href="{{route('usuarios.edit', $user)}}">{{__("Edit")}}</button>
                         <form action="{{route('products.destroy',$user)}}" method="POST">
                             @csrf @method('DELETE')    
-                            <button class=" bg-red-400 text-white px-2 rounded-md focus:ring-2">{{__("Delete")}}</button>
+                            <button class=" btn-delete">{{__("Delete")}}</button>
                         </form>
                     </td>
                 </tr>

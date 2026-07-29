@@ -82,16 +82,16 @@
             @endforeach
         @endforeach
         <tr>
-            <td colspan="3" style="text-align:start"><b>Total</b></td>
-            <td>${{$venta->venta_total}}</td>
+            <td style="text-align:center"><b>Total</b></td>
+            <td colspan="3" style="text-align:end">${{$venta->venta_total}}</td>
         </tr>
         <tr>
-            <td colspan="3" style="text-align:start"><b>Pago</b></td>
-            <td>-${{$venta->dinero_cliente}}</td>
+            <td style="text-align:center"><b>Pago</b></td>
+            <td colspan="3" style="text-align:end">-${{$venta->dinero_cliente}}</td>
         </tr>
         <tr>
-            <td colspan="3" style="text-align:start"><b>Vuelto</b></td>
-            <td>${{$venta->dinero_vuelto}}</td>
+            <td style="text-align:center"><b>Vuelto</b></td>
+            <td colspan="3" style="text-align:end">${{$venta->dinero_vuelto}}</td>
         </tr>
     </table>
 </body>

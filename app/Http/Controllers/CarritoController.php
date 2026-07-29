@@ -20,19 +20,20 @@ class CarritoController extends Controller
     }
 
     public function store(SaveVentaRequest $request)
-    {//dd($request);
+    {
+        //dd($request);
         DB::beginTransaction();
 
         try{
-            $venta=Venta::create($request->validated());
-            //dd($venta->id);
+            $venta=venta::create($request->validated());
+            //dd($venta->venta_id);
             
             if($venta){
                         $carrito=session()->get('carrito');
                         foreach($carrito as $item)
                         {
                             Detalle::create([
-                            'venta_id' => $venta->id,
+                            'venta_id' => $venta->venta_id,
                             'prod_id' => $item['codigo'],
                             'det_prod_costo'=>$item['costo'],
                             'det_prod_precio'=>$item['precio'],

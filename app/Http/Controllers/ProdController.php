@@ -52,10 +52,9 @@ class ProdController extends Controller
      */
     public function edit($product)
     {
-        // dd($product );
        $products= Producto::with('marca')->find($product);
-        // dd($products);
-        $marcas=Marca::where('marca_id','!=',$products->marca_id)->get();
+        
+       $marcas=Marca::where('marca_id','!=',$products->marca_id)->get();
             return view('products.edit',['product'=>$products],['marcas'=>$marcas] );
 
     }
