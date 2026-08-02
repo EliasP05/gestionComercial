@@ -26,7 +26,8 @@
             <tbody id="venta-items-body">
                 @forelse ($items as $item)
                     @php $subtotal = $item['precio'] * $item['cantidad']; @endphp
-                    <tr class="border-b border-slate-200 text-center" data-prod-id="{{ $item['prod_id'] }}"
+                    <tr class="border-b border-slate-200 text-center" 
+                        data-prod-id="{{ $item['prod_id'] }}"
                         data-precio="{{ $item['precio'] }}" data-cantidad-actual="{{ $item['cantidad'] }}"
                         data-update-url="{{ route('ventas.item.update', ['venta' => $ventas, 'prod' => $item['prod_id']]) }}"
                         data-quitar-url="{{ route('ventas.item.quitar', ['venta' => $ventas, 'prod' => $item['prod_id']]) }}">

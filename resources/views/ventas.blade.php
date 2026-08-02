@@ -12,7 +12,8 @@
         <thead>
             <tr class=" bg-slate-200">
                 <th class="rounded-tl-lg py-2">Nro. Venta</th>
-                <th class="">Fecha</th>
+                <th class="">Usuario</th>
+                <th class="">Fecha y hora</th>
                 <th class="">Total</th>
                 <th class="rounded-tr-lg  py-2">Acciones</th>
             </tr>
@@ -20,8 +21,10 @@
         <tbody class="text-center">
             @foreach ($ventas as $venta)
                 <tr class=" border-b border-slate-200">
+
                     <td class="py-1">{{ $venta->venta_id }}</td>
-                    <td class="py-1">{{ $venta->created_at }}</td>
+                    <td class="py-1">{{ $venta->usuario->name }}</td>
+                    <td class="py-1">{{ $venta->created_at->format('d-m-Y H:i') }}</td>
                     <td class="py-1">${{ $venta->venta_total }}</td>
                     <td class="flex justify-center items-center space-x-1 py-1 ">
                         @if (Auth()->user()->hasRole('Administrador'))

@@ -16,33 +16,9 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $venta = Venta::with('detalle.producto')->get();
+        $venta = Venta::with('detalle.producto', 'usuario')->get();
         //dd($venta);
         return view('ventas', ['ventas' => $venta]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(venta $venta)
-    {
-        //
     }
 
     /**

@@ -16,7 +16,7 @@ class CarritoController extends Controller
      */
     public function index()
     {
-        return view('carro'); 
+        return view('carro');
     }
 
     public function store(SaveVentaRequest $request)
@@ -24,140 +24,136 @@ class CarritoController extends Controller
         //dd($request);
         DB::beginTransaction();
 
-        try{
-            $venta=venta::create($request->validated());
+        try {
+            $venta = venta::create($request->validated());
             //dd($venta->venta_id);
-            
-            if($venta){
-                        $carrito=session()->get('carrito');
-                        foreach($carrito as $item)
-                        {
-                            Detalle::create([
-                            'venta_id' => $venta->venta_id,
-                            'prod_id' => $item['codigo'],
-                            'det_prod_costo'=>$item['costo'],
-                            'det_prod_precio'=>$item['precio'],
-                            'det_cantidad'=>$item['cantidad'],
-                            ]);
-                            $producto=Producto::find($item['codigo']);
-                            if($producto){
-                                $producto->prod_stock-=$item['cantidad'];
-                                $producto->save();
-                            }
-                        }
-                        session()->forget('carrito');
-                        
-                        DB::commit();
 
-                        session()->flash('status','venta realizada');
-                        return redirect()->route('carrito');
+            if ($venta) {
+                $carrito = session()->get('carrito');
+                foreach ($carrito as $item) {
+                    Detalle::create([
+                        'venta_id' => $venta->venta_id,
+                        'prod_id' => $item['codigo'],
+                        'det_prod_costo' => $item['costo'],
+                        'det_prod_precio' => $item['precio'],
+                        'det_cantidad' => $item['cantidad'],
+                    ]);
+                    $producto = Producto::find($item['codigo']);
+                    if ($producto) {
+                        $producto->prod_stock -= $item['cantidad'];
+                        $producto->save();
                     }
-        
-        } catch(\Exception $e){
-           // dd($e);
+                }
+                session()->forget('carrito');
+
+                DB::commit();
+
+                session()->flash('status', 'venta realizada');
+                return redirect()->route('carrito');
+            }
+        } catch (\Exception $e) {
+            // dd($e);
             DB::rollback();
 
             session()->forget('carrito');
 
-            session()->flash('status','Hubo un problema al realizar la venta');
+            session()->flash('status', 'Hubo un problema al realizar la venta');
             return redirect()->route('carrito');
         }
-
     }
 
 
     public function show(Request $request)
-    {   
-        $producto = Producto::find($request->prod_cod);
+    {
+        //dd($request->prod_cod);
+        $producto = Producto::where('prod_cod', '=', $request->prod_cod)->first();
 
-        if (isset ($producto)) {
+        if (isset($producto)) {
 
-            $carrito=session()->get('carrito',[]); //si no hay datos en la sesión'CARRITO', obtengo NULL
-            if(isset($carrito[$producto->prod_cod])){
+            $carrito = session()->get('carrito', []); //si no hay datos en la sesión'CARRITO', obtengo NULL
+            if (isset($carrito[$producto->prod_cod])) {
 
-                $carrito[$producto->prod_cod]['cantidad']+=1;
-                $carrito[$producto->prod_cod]['subtotal']=bcmul($carrito[$producto->prod_cod]['cantidad'],$carrito[$producto->prod_cod]['precio'],2);
-            } else{
-                
-                $carrito[$producto->prod_cod]=[
-                    'codigo'=>$producto->prod_cod,
-                    'nombre'=>$producto->prod_nom,
-                    'detalle'=>$producto->prod_descripcion,
-                    'costo'=>$producto->prod_costo,
-                    'precio'=>$producto->prod_precio,
-                    'cantidad'=>$request->cantidad,
-                    'subtotal'=>$producto->prod_precio
+                $carrito[$producto->prod_cod]['cantidad'] += 1;
+                $carrito[$producto->prod_cod]['subtotal'] = bcmul($carrito[$producto->prod_cod]['cantidad'], $carrito[$producto->prod_cod]['precio'], 2);
+            } else {
+
+                $carrito[$producto->prod_cod] = [
+                    'codigo' => $producto->prod_cod,
+                    'nombre' => $producto->prod_nom,
+                    'detalle' => $producto->prod_descripcion,
+                    'costo' => $producto->prod_costo,
+                    'precio' => $producto->prod_precio,
+                    'cantidad' => $request->cantidad,
+                    'subtotal' => $producto->prod_precio
                 ];
-
             }
-           
+
             session()->put('carrito', $carrito);
 
-            session()->flash('status','Producto agregado');
+            session()->flash('status', 'Producto agregado');
         } else {
-            session()->flash('error','El producto no se encuentra');
+            session()->flash('error', 'El producto no se encuentra');
         }
-        
+
         return redirect()->route('carrito');
     }
 
-   public function quitarItem($item){
+    public function quitarItem($item)
+    {
 
-    $carrito=session()->get('carrito',[]);
-    if(isset($carrito[$item])){
+        $carrito = session()->get('carrito', []);
+        if (isset($carrito[$item])) {
 
-        unset($carrito[$item]);
-        session()->put('carrito', $carrito);
-
-        session()->flash('status', 'Producto quitado.');
-    
-    }else{
-        session()->flash('error', 'Producto no encontrado en el carrito.');
-    }
-
-    return redirect()->route('carrito'); 
-}
-
-public function updateCarro(Request $request, $producto){
-
-    $carrito=session()->get('carrito',[]);
-
-    if(isset($carrito[$producto])){
-        $cantidad=(int)$request->cantidad;
-
-        if($cantidad>0){
-
-            $carrito[$producto]['cantidad']=$cantidad;
-            $carrito[$producto]['subtotal']=bcmul($cantidad,$carrito[$producto]['precio'],2);
-            session()->put('carrito', $carrito);
-
-            session()->flash('status', 'Cantidad actualizada');
-
-        }else{
-            unset($carrito[$producto]);
+            unset($carrito[$item]);
             session()->put('carrito', $carrito);
 
             session()->flash('status', 'Producto quitado.');
+        } else {
+            session()->flash('error', 'Producto no encontrado en el carrito.');
         }
-    }else{
-        session()->flash('error', 'Producto no encontrado en el carrito.');
+
+        return redirect()->route('carrito');
     }
-    
-    return redirect()->route('carrito');
-}
 
-public function cancelCarrito(){
-    $carrito=session()->get('carrito',[]);
-    if(isset($carrito)){
+    public function updateCarro(Request $request, $producto)
+    {
 
-        session()->forget('carrito');
-        session()->flash('status','Venta cancelada');
-    }else{
-        session()->flash('error','Error, no es posible cancelar la venta');
+        $carrito = session()->get('carrito', []);
+
+        if (isset($carrito[$producto])) {
+            $cantidad = (int)$request->cantidad;
+
+            if ($cantidad > 0) {
+
+                $carrito[$producto]['cantidad'] = $cantidad;
+                $carrito[$producto]['subtotal'] = bcmul($cantidad, $carrito[$producto]['precio'], 2);
+                session()->put('carrito', $carrito);
+
+                session()->flash('status', 'Cantidad actualizada');
+            } else {
+                unset($carrito[$producto]);
+                session()->put('carrito', $carrito);
+
+                session()->flash('status', 'Producto quitado.');
+            }
+        } else {
+            session()->flash('error', 'Producto no encontrado en el carrito.');
+        }
+
+        return redirect()->route('carrito');
     }
-    
-    return redirect()->route('carrito');
-}    
 
-   
+    public function cancelCarrito()
+    {
+        $carrito = session()->get('carrito', []);
+        if (isset($carrito)) {
+
+            session()->forget('carrito');
+            session()->flash('status', 'Venta cancelada');
+        } else {
+            session()->flash('error', 'Error, no es posible cancelar la venta');
+        }
+
+        return redirect()->route('carrito');
+    }
 }

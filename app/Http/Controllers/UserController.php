@@ -16,8 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $usuarios=User::with('roles')->get();
-        return view('user',['usuarios'=>$usuarios]);
+        $usuarios = User::with('roles')->get();
+        return view('user', ['usuarios' => $usuarios]);
     }
 
     /**
@@ -26,21 +26,21 @@ class UserController extends Controller
     public function create()
     {
         //$tipos=Tipo::get();
-        $tipos=Role::all();
-        return view('usuarios.create',['user' => new User],['tipos'=>$tipos]);
+        $tipos = Role::all();
+        return view('usuarios.create', ['user' => new User], ['tipos' => $tipos]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(SaveUserRequest $request)
-    {   
-    //dd($request);
-        $role=Role::find($request->tip_id);
-        User::create($request->validated())->assignRole($role);
-    
+    {
 
-        session()->flash('status','Usuario registrado');
+        $role = Role::find($request->tip_id);
+        User::create($request->validated())->assignRole($role);
+
+
+        session()->flash('status', 'Usuario registrado');
         return redirect()->route('usuarios');
     }
 
@@ -57,10 +57,10 @@ class UserController extends Controller
      */
     public function edit($user)
     {
-        $usuario= User::with('roles')->find($user);
+        $usuario = User::with('roles')->find($user);
 
-        $tipos=Role::where('id','!=',$usuario->roles->first()->id)->get();
-        return view('usuarios.edit',['user'=>$usuario],['tipos'=>$tipos]);
+        $tipos = Role::where('id', '!=', $usuario->roles->first()->id)->get();
+        return view('usuarios.edit', ['user' => $usuario], ['tipos' => $tipos]);
     }
 
     /**
@@ -68,12 +68,12 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, User $user)
     {
-        $role=Role::find($request->tip_id);
+        $role = Role::find($request->tip_id);
         $user->roles()->detach();
         $user->update($request->validated());
         $user->assignRole($role); //aqui debo cambiar el codigo ya que me genera un resgitro nuevo en vez de modificar
 
-        session()->flash('status','Usuario Acualizado');
+        session()->flash('status', 'Usuario Acualizado');
         return redirect()->route('usuarios');
     }
 
@@ -83,14 +83,15 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        
-        session()->flash('status','Registro Eliminado');
+
+        session()->flash('status', 'Registro Eliminado');
         return redirect()->route('usuarios');
     }
-    public function generarPdf(){
-        $usuarios=User::with('tipo')->get();
-        $pdf=Pdf::loadView('usuarios.pdf', compact('usuarios'));
+    public function generarPdf()
+    {
+        $usuarios = User::with('tipo')->get();
+        $pdf = Pdf::loadView('usuarios.pdf', compact('usuarios'));
         //return $pdf->download('reporteUser.pdf');
-        return view('usuarios.pdf',['usuarios'=>$usuarios]);
+        return view('usuarios.pdf', ['usuarios' => $usuarios]);
     }
 }
